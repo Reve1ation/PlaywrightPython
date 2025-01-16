@@ -1,0 +1,16 @@
+[project]
+name = "playwright-package"
+version = "0.1.0"
+description = "A package using Playwright for browser automation."
+authors = [
+    {name = "Anatolii Dubovskyi", email = "anatolii.dubovskyi@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "playwright==1.49.0"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
