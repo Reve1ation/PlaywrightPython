@@ -26,16 +26,13 @@ class GenericEbayPage(Page):
 
     def verify_signed_in(self, sign_in_status: Literal["signed in", "not signed in"]) -> bool:
         """
-        Verifies the user's sign-in status.
-
-        Args:
-            sign_in_status (str): The expected sign-in status ("signed in" or "not signed in").
-
-        Returns:
-            bool: True if the sign-in status matches, otherwise False.
-
-        Raises:
-            ValueError: If the sign-in status is unexpected.
+            Verifies the user's sign-in status.
+            Args:
+                sign_in_status (str): The expected sign-in status ("signed in" or "not signed in").
+            Returns:
+                bool: True if the sign-in status matches, otherwise False.
+            Raises:
+                ValueError: If the sign-in status is unexpected.
         """
         LOGGER.info(f"Verifying sign-in status: {sign_in_status}")
         match sign_in_status.lower():

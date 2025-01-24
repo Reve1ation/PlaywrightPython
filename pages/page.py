@@ -41,11 +41,13 @@ class Page:
             Locator: The locator for the elements.
         """
         LOGGER.info(f"Finding elements with selector: {selector}, state: {state}")
-        locator = self.page.locator(selector)
-        locator.wait_for(state=state)
-        count = locator.count()
+        locators = self.page.locator(selector)
+        count = locators.count()
+
+        for index in range(count):
+            locators.nth(index).wait_for(state=state)
         LOGGER.info(f"Elements with selector '{selector}' found and ready. Number of elements found: {count}")
-        return locator
+        return locators
 
     def wait_for_element(self,
                          selector: str,

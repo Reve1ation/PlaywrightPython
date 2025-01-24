@@ -5,13 +5,13 @@ from utilities.logger import LOGGER
 def before_all(context):
     LOGGER.info("Starting Playwright configuration.")
 
-    # Завантаження конфігурацій
-    context.configurations = load_configurations()
+    # Load configurations
+    context.configurations, context.ui_config = load_configurations()
 
-    # Запуск Playwright
+    # Start Playwright
     context.playwright = sync_playwright().start()
 
-    # Ініціалізація браузерів
+    # Initialize browsers
     context.browsers = initialize_browsers(context.playwright, context.configurations)
 
     LOGGER.info("Playwright configuration completed.")

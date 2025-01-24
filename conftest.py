@@ -5,7 +5,13 @@ from utilities.logger import LOGGER
 
 @pytest.fixture(scope="session")
 def configurations():
-    return load_configurations()
+    configurations, _ = load_configurations()
+    return configurations
+
+@pytest.fixture(scope="session")
+def ui_config():
+    _, yaml_config = load_configurations()
+    return yaml_config
 
 @pytest.fixture(scope="session")
 def playwright_instance():
