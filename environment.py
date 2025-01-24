@@ -1,4 +1,4 @@
-from utilities.common import load_configurations, initialize_browsers
+from common_configuration import load_configurations, initialize_browsers
 from playwright.sync_api import sync_playwright
 from utilities.logger import LOGGER
 

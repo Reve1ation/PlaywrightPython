@@ -10,10 +10,14 @@ load_dotenv()
 
 # Load configurations from YAML file
 def load_configurations():
+    LOGGER.configure_logger(level=os.getenv("LOG_LEVEL", "INFO").upper())
     LOGGER.info("Loading configurations.")
 
+    if not load_dotenv():
+        LOGGER.critical(".env file not found or not loaded.")
+
     # Load YAML configuration
-    base_dir = Path(__file__).resolve().parent.parent
+    base_dir = Path(__file__).resolve().parent
     config_path = base_dir / "config" / "ebay_prod.yaml"
     if not config_path.exists():
         raise FileNotFoundError(f"Configuration file not found at {config_path}")
@@ -25,7 +29,7 @@ def load_configurations():
 
     # Load environment variables for dynamic configurations
     browsers = os.getenv("BROWSERS", "chromium").split(",")
-    devices = os.getenv("DEVICE", "").split(",")
+    devices = os.getenv("DEVICES", "").split(",")
     headless = os.getenv("HEADLESS", "true").lower() == "true"
 
     LOGGER.debug(f"Environment browsers: {browsers}")
