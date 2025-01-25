@@ -8,13 +8,13 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pytest-playwright",
+    "pytest-playwright==0.6.2",
     "playwright==1.49.1",
     "ruff",
-    "behave",
-    "coloredlogs",
-    "python-dotenv",
-    "PyYaml"
+    "behave==1.2.6",
+    "coloredlogs==15.0.1",
+    "python-dotenv==1.0.1",
+    "PyYaml==6.0.2"
 ]
 
 [tool.pytest.ini_options]
