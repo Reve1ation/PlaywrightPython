@@ -19,17 +19,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up pipx and poetry
-        run: |
-          python3 -m pip install --user pipx
-          export PATH="$HOME/.local/bin:$PATH"
-          pipx install poetry
+      - name: Install Python venv module
+        run: apt-get update && apt-get install -y python3.12-venv
+
+      - name: Install pipx
+        run: python3 -m pip install --user pipx
+
+      - name: Add pipx to PATH
+        run: echo "::add-path::$(python3 -m site --user-base)/bin"
+
+      - name: Install poetry
+        run: pipx install poetry
 
       - name: Install dependencies
         run: poetry install
-
-      - name: Install Playwright Browsers
-        run: poetry run playwright install
 
       - name: Run pytest tests
         env:
