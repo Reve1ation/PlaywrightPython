@@ -7,7 +7,7 @@ on:
   pull_request:
     branches-ignore:
       - main
-  workflow_dispatch: # Дозволяє ручний запуск на main
+  workflow_dispatch:
 
 jobs:
   test-and-lint:
