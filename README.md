@@ -1,4 +1,4 @@
-Steps to start from scratch:
+Steps to start from scratch: 
 1. Execute in the terminal: `pip install poetry`
 2. If needed execute `poetry init`
 3. From the project root: `poetry install --no-root` or `poetry install`
