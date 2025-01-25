@@ -1,0 +1,10 @@
+eBay:
+  base_url: 'https://www.ebay.com'
+
+users:
+  valid_ebay_user:
+    email: 'e_bay_test_account@proton.me'
+    password: 'Python1991'
+  invalid_ebay_user:
+    email: 'wrong@email.me'
+    password: 'WrongPass'

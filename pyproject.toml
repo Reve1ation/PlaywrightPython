@@ -8,8 +8,20 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "playwright==1.49.0",
-    "ruff"
+    "pytest-playwright",
+    "playwright==1.49.1",
+    "ruff",
+    "behave",
+    "coloredlogs",
+    "python-dotenv",
+    "PyYaml"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "asyncio: Execute asynchronous tests"
 ]
 
 [build-system]
