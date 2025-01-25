@@ -20,10 +20,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Python venv module
-        run: apt-get update && apt-get install -y python3.12-venv
+        run: apt-get update && apt-get install -y python3.12-venv python3-pip
 
       - name: Install pipx
-        run: python3 -m pip install --user pipx
+        run: python3 -m pip install --user pipx --break-system-packages
 
       - name: Add pipx to PATH
         run: echo "::add-path::$(python3 -m site --user-base)/bin"
