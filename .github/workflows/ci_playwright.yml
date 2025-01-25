@@ -2,14 +2,60 @@ name: Playwright Framework CI
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
   pull_request:
-    branches:
+    branches-ignore:
       - main
+  workflow_dispatch: # Дозволяє ручний запуск на main
 
 jobs:
-  test:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.49.1-noble
+      options: --shm-size=1g
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Python venv module
+        run: apt-get update && apt-get install -y python3.12-venv python3-pip
+
+      - name: Install pipx
+        run: python3 -m pip install --user pipx --break-system-packages
+
+      - name: Add pipx to PATH
+        run: echo "$(python3 -m site --user-base)/bin" >> $GITHUB_PATH
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Run Ruff linting
+        run: poetry run ruff check .
+
+      - name: Run pytest tests
+        env:
+          HEADLESS: true
+          BROWSERS: chromium
+          DEVICES: ''
+          LOG_LEVEL: DEBUG
+        run: poetry run pytest tests
+
+      - name: Run behave tests
+        env:
+          HEADLESS: true
+          BROWSERS: chromium
+          DEVICES: ''
+          LOG_LEVEL: DEBUG
+        run: poetry run behave features
+
+  manual-test-main:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright/python:v1.49.1-noble
