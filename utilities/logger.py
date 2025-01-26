@@ -6,7 +6,7 @@ import coloredlogs
 
 class Logger:
     _instance = None
-    default_log_level = os.getenv('LOG_LEVEL', 'INFO')
+    default_log_level = os.getenv('LOG_LEVEL', 'INFO').upper()
 
     @classmethod
     def get_instance(cls, log_level=None):
@@ -40,11 +40,6 @@ class Logger:
             field_styles=field_styles,
             isatty=True
         )
-
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super(Logger, cls).__new__(cls)
-        return cls._instance
 
     def debug(self, message, show_log: bool = True):
         if show_log:

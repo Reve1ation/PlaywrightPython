@@ -18,11 +18,15 @@ dependencies = [
 ]
 
 [tool.pytest.ini_options]
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "function"
+log_cli = true
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s %(levelname)s %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 markers = [
-    "asyncio: Execute asynchronous tests"
+    "regression: Mark test as regreression test",
+    "smoke: Mark test as smoke test"
 ]
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
