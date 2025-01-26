@@ -54,10 +54,10 @@ jobs:
         run: |
           if [ "${{ github.event.inputs.test_tags }}" != "" ]; then
             echo "Running tests with tags: ${{ github.event.inputs.test_tags }}"
-            pytest -m "${{ github.event.inputs.test_tags }}"
+            poetry run pytest -m "${{ github.event.inputs.test_tags }}"
           else
             echo "Running all tests"
-            pytest
+            poetry run pytest tests
           fi
 
       - name: Run behave tests
