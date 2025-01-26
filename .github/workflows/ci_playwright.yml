@@ -8,6 +8,11 @@ on:
     branches-ignore:
       - main
   workflow_dispatch:
+    inputs:
+      test_tags:
+        description: "Specify test tags to run (e.g., smoke, regression)"
+        required: false
+        default: ""
 
 jobs:
   test-and-lint:
@@ -38,13 +43,22 @@ jobs:
       - name: Run Ruff linting
         run: poetry run ruff check .
 
+#      - name: Run pytest tests
+#        env:
+#          HEADLESS: true
+#          BROWSERS: chromium
+#          DEVICES: ''
+#          LOG_LEVEL: DEBUG
+#        run: poetry run pytest tests
       - name: Run pytest tests
-        env:
-          HEADLESS: true
-          BROWSERS: chromium
-          DEVICES: ''
-          LOG_LEVEL: DEBUG
-        run: poetry run pytest tests
+        run: |
+          if [ "${{ github.event.inputs.test_tags }}" != "" ]; then
+            echo "Running tests with tags: ${{ github.event.inputs.test_tags }}"
+            poetry run pytest -m "${{ github.event.inputs.test_tags }}"
+          else
+            echo "Running all tests"
+            poetry run pytest tests
+          fi
 
       - name: Run behave tests
         env:
@@ -94,4 +108,6 @@ jobs:
           BROWSERS: chromium
           DEVICES: ''
           LOG_LEVEL: DEBUG
+          TAGS: ALL
+          IDS: ALL
         run: poetry run behave features
